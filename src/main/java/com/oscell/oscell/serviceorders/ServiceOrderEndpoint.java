@@ -12,8 +12,10 @@ import com.oscell.oscell.serviceorders.domain.ServiceOrderUpdate;
 
 @Service
 public class ServiceOrderEndpoint {
+    
     @Autowired
     ServiceOrderRepository repository;
+
     @Autowired
     ServiceOrderMapper mapper;
     
@@ -21,7 +23,7 @@ public class ServiceOrderEndpoint {
         return repository.findAll();
     }
 
-    public ServiceOrder getServiceOrder(final Long sequence) throws Exception{
+    public ServiceOrder getServiceOrder(Long sequence) throws Exception{
         try{
             return repository.findById(sequence).get();
         }catch(Exception e){
@@ -29,7 +31,7 @@ public class ServiceOrderEndpoint {
         }
     }
 
-    public ServiceOrderResponse<ServiceOrder> createServiceOrder(final ServiceOrderCreation serviceOrderCreation) {
+    public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation) {
         ServiceOrder entity = mapper.map(serviceOrderCreation);
         
         try {
@@ -41,7 +43,7 @@ public class ServiceOrderEndpoint {
         }
     }
 
-    public ServiceOrderResponse<ServiceOrder> updateServiceOrder(final Long sequence, final ServiceOrderUpdate serviceOrderUpdate) {
+    public ServiceOrderResponse<ServiceOrder> updateServiceOrder(Long sequence, ServiceOrderUpdate serviceOrderUpdate) {
         try {  
             ServiceOrder entity = getServiceOrder(sequence);
             if (serviceOrderUpdate.getBrand() != null) {
@@ -75,7 +77,7 @@ public class ServiceOrderEndpoint {
         }
     }
 
-    public ServiceOrderResponse<ServiceOrder> deleteServiceOrder(final Long sequence) {
+    public ServiceOrderResponse<ServiceOrder> deleteServiceOrder(Long sequence) {
         try {
             ServiceOrder entity = getServiceOrder(sequence);
             repository.deleteById(sequence);

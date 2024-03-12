@@ -36,7 +36,7 @@ public class ServiceOrderIntegration {
     }
 
     @GetMapping("/{sequence}")
-    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> getServiceOrder(@PathVariable final Long sequence) {
+    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> getServiceOrder(@PathVariable Long sequence) {
         try{
             ServiceOrder serviceOrder = endpoint.getServiceOrder(sequence);
             return ResponseEntity.ok().body(ServiceOrderResponse.ok(serviceOrder));
@@ -52,13 +52,13 @@ public class ServiceOrderIntegration {
     }
 
     @PutMapping("/{sequence}")
-    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> updateServiceOrder(@PathVariable final Long sequence, @RequestBody final ServiceOrderUpdate serviceOrderUpdate) {
+    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> updateServiceOrder(@PathVariable Long sequence, @RequestBody ServiceOrderUpdate serviceOrderUpdate) {
         ServiceOrderResponse<ServiceOrder> response = endpoint.updateServiceOrder(sequence, serviceOrderUpdate);
         return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
     }
 
     @DeleteMapping("/{sequence}")
-    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> deleteServiceOrder(@PathVariable final Long sequence) {
+    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> deleteServiceOrder(@PathVariable Long sequence) {
         ServiceOrderResponse<ServiceOrder> response = endpoint.deleteServiceOrder(sequence);
         return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
     }
