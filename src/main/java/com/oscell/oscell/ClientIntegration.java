@@ -25,41 +25,41 @@ public class ClientIntegration {
         @Autowired
         ClientEndpoint endpoint;
 
-    public ClientIntegration(ClientEndpoint endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Client>> getClient() {
-        List<Client> clients = endpoint.getClient();
-        return ResponseEntity.ok().body(clients);
-    }
-
-    @GetMapping("/{sequence}")
-    public ResponseEntity<ServiceOrderResponse<Client>> getClient(@PathVariable Long sequence) {
-        try{
-            Client client = endpoint.getClient(sequence);
-            return ResponseEntity.ok().body(ServiceOrderResponse.ok(client));
-        }catch(Exception e){
-            return ResponseEntity.badRequest().body(ServiceOrderResponse.error(e.getMessage()));
+        public ClientIntegration(ClientEndpoint endpoint) {
+            this.endpoint = endpoint;
         }
-    }
 
-    @PostMapping
-    public ResponseEntity<ServiceOrderResponse<Client>> createClient(@RequestBody ClientCreation clientCreation) {
-        ServiceOrderResponse<Client> response = endpoint.createClient(clientCreation);
-        return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
-    }
+        @GetMapping
+        public ResponseEntity<List<Client>> getClient() {
+            List<Client> clients = endpoint.getClient();
+            return ResponseEntity.ok().body(clients);
+        }
 
-    @PutMapping("/{sequence}")
-    public ResponseEntity<ServiceOrderResponse<Client>> updateClient(@PathVariable Long sequence, @RequestBody ClientUpdate clientUpdate) {
-        ServiceOrderResponse<Client> response = endpoint.updateClient(sequence, clientUpdate);
-        return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
-    }
+        @GetMapping("/{sequence}")
+        public ResponseEntity<ServiceOrderResponse<Client>> getClient(@PathVariable Long sequence) {
+            try{
+                Client client = endpoint.getClient(sequence);
+                return ResponseEntity.ok().body(ServiceOrderResponse.ok(client));
+            }catch(Exception e){
+                return ResponseEntity.badRequest().body(ServiceOrderResponse.error(e.getMessage()));
+            }
+        }
 
-    @DeleteMapping("/{sequence}")
-    public ResponseEntity<ServiceOrderResponse<Client>> deleteClient(@PathVariable Long sequence) {
-        ServiceOrderResponse<Client> response = endpoint.deleteClient(sequence);
-        return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
-    }
+        @PostMapping
+        public ResponseEntity<ServiceOrderResponse<Client>> createClient(@RequestBody ClientCreation clientCreation) {
+            ServiceOrderResponse<Client> response = endpoint.createClient(clientCreation);
+            return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
+        }
+
+        @PutMapping("/{sequence}")
+        public ResponseEntity<ServiceOrderResponse<Client>> updateClient(@PathVariable Long sequence, @RequestBody ClientUpdate clientUpdate) {
+            ServiceOrderResponse<Client> response = endpoint.updateClient(sequence, clientUpdate);
+            return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
+        }
+
+        @DeleteMapping("/{sequence}")
+        public ResponseEntity<ServiceOrderResponse<Client>> deleteClient(@PathVariable Long sequence) {
+            ServiceOrderResponse<Client> response = endpoint.deleteClient(sequence);
+            return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
+        }
 }
