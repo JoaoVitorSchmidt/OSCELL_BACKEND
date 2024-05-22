@@ -92,4 +92,10 @@ public class UserEndpoint {
             return ServiceOrderResponse.error(e.getMessage());
         }
     }
+    
+    public boolean authenticateUser(String userName, String password) {
+        User user = userRepository.findByUserName(userName);
+        return user != null && user.getUserPassword().equals(password);
+    }
+
 }

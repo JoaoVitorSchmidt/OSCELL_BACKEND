@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oscell.oscell.commons.response.ServiceOrderResponse;
+import com.oscell.oscell.user.UserCredentials;
 import com.oscell.oscell.user.UserEndpoint;
 import com.oscell.oscell.user.domain.User;
 import com.oscell.oscell.user.domain.UserCreation;
@@ -43,6 +44,12 @@ public class UserIntegration {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ServiceOrderResponse.error(e.getMessage()));
         }
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<ServiceOrderResponse<Boolean>> loginUser(@RequestBody UserCredentials credentials) {
+        boolean authenticated = endpoint.authenticateUser(credentials.getUserName(), credentials.getPassword());
+        return ResponseEntity.ok().body(ServiceOrderResponse.ok(authenticated));
     }
 
     @PostMapping

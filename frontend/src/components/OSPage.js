@@ -1,5 +1,7 @@
+// OSPage.js
 import React from 'react';
 import Sidebar from './Sidebar';
+import DataTable from './DataTable';
 import './OSPage.css';
 
 function OSPage() {
@@ -8,6 +10,7 @@ function OSPage() {
       <Sidebar />
       <div className="content">
         <h1>Welcome to the OS Page!</h1>
+        <DataTable />
       </div>
     </div>
   );
