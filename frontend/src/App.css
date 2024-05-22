@@ -1,14 +1,20 @@
-.app {
-  display: flex;
-  min-height: 100vh;
-  background-color: #808080; /* Gray background */
-  color: #fff; /* White text color */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-.content {
-  flex-grow: 1;
-  padding: 20px;
+.app {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

@@ -1,9 +1,11 @@
-.os-container {
-    background-color: #000;
-    color: #007bff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    margin: 100px auto;
-    text-align: center;
-  }  
+.os-page {
+  display: flex;
+  height: calc(100vh - 50px);
+  background-color: #2e2e2e;
+  color: #fff;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}

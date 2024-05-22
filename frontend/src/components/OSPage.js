@@ -1,9 +1,14 @@
 import React from 'react';
+import Sidebar from './Sidebar';
+import './OSPage.css';
 
 function OSPage() {
   return (
-    <div>
-      <h1>Bem-vindo à Página de OS's!</h1>
+    <div className="os-page">
+      <Sidebar />
+      <div className="content">
+        <h1>Welcome to the OS Page!</h1>
+      </div>
     </div>
   );
 }
