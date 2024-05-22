@@ -31,6 +31,9 @@ public class ServiceOrder {
     @Column(name = "DS_DEFEITO")
     private String description;
 
+    @Column(name = "DS_SITUACAO")
+    private String situation;
+
     @Column(name = "NR_SEQ_CLIENTE")
     private String clientSequence;
 
@@ -135,5 +138,21 @@ public class ServiceOrder {
 
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
+    }
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
     }
 }

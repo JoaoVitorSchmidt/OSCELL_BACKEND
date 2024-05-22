@@ -4,6 +4,7 @@ public class ServiceOrderUpdate {
     private String brand;
     private String model;
     private String description;
+    private String situation;
     private String clientName;
     private String clientCell;
     private String clientFixo;
@@ -57,5 +58,11 @@ public class ServiceOrderUpdate {
     }
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
+    }
+    public String getSituation() {
+        return situation;
+    }
+    public void setSituation(String situation) {
+        this.situation = situation;
     }
 }

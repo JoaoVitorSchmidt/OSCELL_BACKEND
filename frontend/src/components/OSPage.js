@@ -9,7 +9,7 @@ function OSPage() {
     <div className="os-page">
       <Sidebar />
       <div className="content">
-        <h1>Welcome to the OS Page!</h1>
+        <h1>OS's Cadastradas</h1>
         <DataTable />
       </div>
     </div>

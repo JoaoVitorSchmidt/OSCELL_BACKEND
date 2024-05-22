@@ -3,6 +3,7 @@
   height: calc(100vh - 50px);
   background-color: #2e2e2e;
   color: #fff;
+  text-align: center;
 }
 
 .content {

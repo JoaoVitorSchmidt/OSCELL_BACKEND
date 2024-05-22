@@ -88,4 +88,10 @@ public class ServiceOrderEndpoint {
             return ServiceOrderResponse.error(e.getMessage());
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<ServiceOrder>> getServiceOrders() {
+        List<ServiceOrder> serviceOrders = repository.findAll();
+        return ResponseEntity.ok(serviceOrders);
+    }
 }

@@ -8,6 +8,7 @@ public class ServiceOrderCreation {
     private String model;
     private Instant creationDate = Instant.now();
     private String description;
+    private String situation;
     private String clientSequence;
     private String clientName;
     private String clientCell;
@@ -81,6 +82,10 @@ public class ServiceOrderCreation {
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
-
-    
+    public String getSituation() {
+        return situation;
+    }
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
 }
