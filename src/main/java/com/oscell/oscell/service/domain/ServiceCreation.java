@@ -5,6 +5,7 @@ public class ServiceCreation {
     private String serviceName;
     private String serviceDescription;
     private Long serviceValue;
+    private Long userSequence;
     
     public Long getSequence() {
         return sequence;
@@ -30,6 +31,10 @@ public class ServiceCreation {
     public void setServiceValue(Long serviceValue) {
         this.serviceValue = serviceValue;
     }
-
-    
+    public Long getUserSequence() {
+        return userSequence;
+    }
+    public void setUserSequence(Long userSequence) {
+        this.userSequence = userSequence;
+    }
 }

@@ -17,7 +17,7 @@ function DataTable() {
         <table>
           <thead>
             <tr>
-              <th>Número Sequência</th>
+              <th data-priority="1">Número Sequência</th>
               <th>Nome Cliente</th>
               <th>CPF Cliente</th>
               <th>Marca</th>

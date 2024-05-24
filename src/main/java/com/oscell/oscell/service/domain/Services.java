@@ -25,6 +25,9 @@ public class Services {
     @Column(name = "NR_VALOR")
     private Long serviceValue;
 
+    @Column(name = "USUARIO_SIS")
+    private Long userSequence;
+
     public Long getSequence() {
         return sequence;
     }
@@ -57,5 +60,11 @@ public class Services {
         this.serviceValue = serviceValue;
     }
 
-    
+    public Long getUserSequence() {
+        return userSequence;
+    }
+
+    public void setUserSequence(Long userSequence) {
+        this.userSequence = userSequence;
+    }
 }

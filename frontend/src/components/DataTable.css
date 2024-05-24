@@ -2,7 +2,6 @@
 .data-table {
   margin-top: 20px;
   color: black;
-  border-color: black;
 }
 
 table {
@@ -24,4 +23,6 @@ th, td {
 th {
   background-color: black; /* Background preto */
   color: white; /* Texto branco */
+  text-align: center;
+  border-color: white;
 }

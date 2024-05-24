@@ -97,5 +97,4 @@ public class UserEndpoint {
         User user = userRepository.findByUserName(userName);
         return user != null && user.getUserPassword().equals(password);
     }
-
 }

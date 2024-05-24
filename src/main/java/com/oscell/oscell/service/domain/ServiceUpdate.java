@@ -4,6 +4,7 @@ public class ServiceUpdate {
     private String serviceName;
     private String serviceDescription;
     private Long serviceValue;
+    private Long userSequence;
     
     public String getServiceName() {
         return serviceName;
@@ -23,6 +24,10 @@ public class ServiceUpdate {
     public void setServiceValue(Long serviceValue) {
         this.serviceValue = serviceValue;
     }
-
-    
+    public Long getUserSequence() {
+        return userSequence;
+    }
+    public void setUserSequence(Long userSequence) {
+        this.userSequence = userSequence;
+    }
 }

@@ -8,6 +8,7 @@ public class ClientCreation {
     private String clientCPF;
     private String clientCNPJ;
     private String clientEmail;
+    private Long userSequence;
     
     public Long getSequence() {
         return sequence;
@@ -51,6 +52,10 @@ public class ClientCreation {
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
-
-    
+    public Long getUserSequence() {
+        return userSequence;
+    }
+    public void setUserSequence(Long userSequence) {
+        this.userSequence = userSequence;
+    }
 }
