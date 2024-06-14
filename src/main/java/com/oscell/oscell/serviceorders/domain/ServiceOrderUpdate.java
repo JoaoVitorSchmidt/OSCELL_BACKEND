@@ -10,7 +10,6 @@ public class ServiceOrderUpdate {
     private String clientFixo;
     private String clientCPF;
     private String clientEmail;
-    private Long userSequence;
     
     public String getBrand() {
         return brand;
@@ -65,11 +64,5 @@ public class ServiceOrderUpdate {
     }
     public void setSituation(String situation) {
         this.situation = situation;
-    }
-    public Long getUserSequence() {
-        return userSequence;
-    }
-    public void setUserSequence(Long userSequence) {
-        this.userSequence = userSequence;
     }
 }

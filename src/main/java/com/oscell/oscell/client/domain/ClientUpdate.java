@@ -7,7 +7,6 @@ public class ClientUpdate {
     private String clientCPF;
     private String clientCNPJ;
     private String clientEmail;
-    private Long userSequence;
     
     public String getClientName() {
         return clientName;
@@ -45,10 +44,6 @@ public class ClientUpdate {
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
-    public Long getUserSequence() {
-        return userSequence;
-    }
-    public void setUserSequence(Long userSequence) {
-        this.userSequence = userSequence;
-    }
+
+    
 }

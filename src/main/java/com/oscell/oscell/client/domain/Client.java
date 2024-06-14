@@ -35,9 +35,6 @@ public class Client {
     @Column(name = "EMAIL_CLIENTE")
     private String clientEmail;
 
-    @Column(name = "USUARIO_SIS")
-    private Long userSequence;
-
     public Long getSequence() {
         return sequence;
     }
@@ -92,13 +89,5 @@ public class Client {
 
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
-    }
-
-    public Long getUserSequence() {
-        return userSequence;
-    }
-
-    public void setUserSequence(Long userSequence) {
-        this.userSequence = userSequence;
     }
 }

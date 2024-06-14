@@ -15,7 +15,6 @@ public class ServiceOrderCreation {
     private String clientFixo;
     private String clientCPF;
     private String clientEmail;
-    private Long userSequence;
     
     public Long getSequence() {
         return sequence;
@@ -88,11 +87,5 @@ public class ServiceOrderCreation {
     }
     public void setSituation(String situation) {
         this.situation = situation;
-    }
-    public Long getUserSequence() {
-        return userSequence;
-    }
-    public void setUserSequence(Long userSequence) {
-        this.userSequence = userSequence;
     }
 }
