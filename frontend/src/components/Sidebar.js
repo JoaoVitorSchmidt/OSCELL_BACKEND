@@ -1,13 +1,13 @@
 import React from 'react';
 import './Sidebar.css';
-import { FaMobileAlt } from 'react-icons/fa';
+import CustomIcon from './cellphone.png'; // Caminho para o ícone que você baixou
 
 function Sidebar() {
   return (
     <div className="sidebar">
       <div className="logo">
-        <FaMobileAlt size={32} color="white" />
-        <span>OS CELL</span>
+        <img src={CustomIcon} alt="Ícone OS CELL" style={{ width: '32px' }} />
+        <span>OSCELL</span>
       </div>
       <ul>
         <li><a href="#">Home</a></li>
