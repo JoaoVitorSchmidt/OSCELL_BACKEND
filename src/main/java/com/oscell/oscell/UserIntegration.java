@@ -3,6 +3,7 @@ package com.oscell.oscell;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,10 +48,14 @@ public class UserIntegration {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<ServiceOrderResponse<Boolean>> loginUser(@RequestBody UserCredentials credentials) {
-        boolean authenticated = endpoint.authenticateUser(credentials.getUserName(), credentials.getPassword());
-        return ResponseEntity.ok().body(ServiceOrderResponse.ok(authenticated));
-    }
+    public ResponseEntity<ServiceOrderResponse<String>> loginUser(@RequestBody UserCredentials credentials) {
+        try {
+            String jwtToken = endpoint.authenticateUser(credentials.getUserName(), credentials.getPassword());
+            return ResponseEntity.ok().body(ServiceOrderResponse.ok(jwtToken));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ServiceOrderResponse.error("Credenciais inválidas."));
+        }
+    }      
 
     @PostMapping
     public ResponseEntity<ServiceOrderResponse<User>> createUser(@RequestBody UserCreation userCreation) {

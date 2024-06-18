@@ -16,22 +16,18 @@ function LoginForm() {
             },
             body: JSON.stringify({ userName, password }),
         });
-
+  
         if (response.ok) {
-            const data = await response.json();
-            const authenticated = data.content;
-            if (authenticated) {
-                window.location.href = '/os';
-            } else {
-                setError('Credenciais inválidas.');
-            }
+            const { token } = await response.json(); // Supondo que o servidor retorne um objeto com uma propriedade 'token'
+            localStorage.setItem('token', token); // Armazena o token no armazenamento local
+            window.location.href = '/os';
         } else {
-            setError('Erro na comunicação com o servidor');
+            setError('Credenciais inválidas.');
         }
     } catch (error) {
         setError('Erro na comunicação com o servidor');
     }
-};
+  };  
 
   return (
     <div className="login-container">

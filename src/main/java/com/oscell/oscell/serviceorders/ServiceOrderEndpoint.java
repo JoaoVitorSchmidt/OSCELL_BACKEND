@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.oscell.oscell.commons.response.ServiceOrderResponse;
+import com.oscell.oscell.security.JwtUtil;
 import com.oscell.oscell.serviceorders.domain.ServiceOrder;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderCreation;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderUpdate;
+import com.oscell.oscell.user.UserRepository;
 
 @Service
 public class ServiceOrderEndpoint {
@@ -20,6 +22,12 @@ public class ServiceOrderEndpoint {
 
     @Autowired
     ServiceOrderMapper mapper;
+
+    @Autowired
+    JwtUtil jwtUtil;
+
+    @Autowired
+    UserRepository userRepository;
     
     public List<ServiceOrder> getServiceOrder() {
         return repository.findAll();
@@ -33,15 +41,24 @@ public class ServiceOrderEndpoint {
         }
     }
 
-    public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation) {
-        ServiceOrder entity = mapper.map(serviceOrderCreation);
+    public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation, String token) {
+        Long userSequence = null;
+        String username = jwtUtil.validateToken(token);
+        if (username != null) {
+            userSequence = userRepository.findByUserName(username).getSequence();
+        }
         
-        try {
-            repository.save(entity);
-            
-            return ServiceOrderResponse.ok(entity);
-        } catch (Exception e) {
-            return ServiceOrderResponse.errorWithContent(entity, e.getMessage());
+        if (userSequence != null) {
+            ServiceOrder entity = mapper.map(serviceOrderCreation);
+            entity.setUserSys(userSequence); // Adiciona o número de sequência do usuário no campo Usuario_SIS
+            try {
+                repository.save(entity);
+                return ServiceOrderResponse.ok(entity);
+            } catch (Exception e) {
+                return ServiceOrderResponse.errorWithContent(entity, e.getMessage());
+            }
+        } else {
+            return ServiceOrderResponse.error("Token inválido ou usuário não encontrado.");
         }
     }
 

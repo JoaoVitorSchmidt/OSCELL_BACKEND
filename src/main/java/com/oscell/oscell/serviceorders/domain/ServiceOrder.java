@@ -52,6 +52,9 @@ public class ServiceOrder {
     @Column(name = "EMAIL_CLIENTE")
     private String clientEmail;
 
+    @Column(name = "USUARIO_SIS")
+    private Long userSys;
+
     public Long getSequence() {
         return sequence;
     }
@@ -154,5 +157,13 @@ public class ServiceOrder {
 
     public void setSituation(String situation) {
         this.situation = situation;
+    }
+
+    public Long getUserSys() {
+        return userSys;
+    }
+
+    public void setUserSys(Long userSys) {
+        this.userSys = userSys;
     }
 }

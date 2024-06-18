@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,10 +47,14 @@ public class ServiceOrderIntegration {
     }
 
     @PostMapping
-    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> createServiceOrder(@RequestBody ServiceOrderCreation serviceOrderCreation) {
-        ServiceOrderResponse<ServiceOrder> response = endpoint.createServiceOrder(serviceOrderCreation);
+    public ResponseEntity<ServiceOrderResponse<ServiceOrder>> createServiceOrder(
+            @RequestBody ServiceOrderCreation serviceOrderCreation,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring("Bearer ".length());
+        ServiceOrderResponse<ServiceOrder> response = endpoint.createServiceOrder(serviceOrderCreation, token);
         return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
     }
+
 
     @PutMapping("/{sequence}")
     public ResponseEntity<ServiceOrderResponse<ServiceOrder>> updateServiceOrder(@PathVariable Long sequence, @RequestBody ServiceOrderUpdate serviceOrderUpdate) {
