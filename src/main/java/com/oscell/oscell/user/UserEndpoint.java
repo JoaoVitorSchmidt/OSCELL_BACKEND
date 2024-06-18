@@ -1,7 +1,5 @@
 package com.oscell.oscell.user;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.oscell.oscell.commons.response.ServiceOrderResponse;
+import com.oscell.oscell.security.JwtUtil;
 import com.oscell.oscell.user.domain.User;
 import com.oscell.oscell.user.domain.UserCreation;
 import com.oscell.oscell.user.domain.UserUpdate;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import java.security.Key;
 
 @Service
 public class UserEndpoint {
@@ -113,29 +107,21 @@ public class UserEndpoint {
     public String authenticateUser(String userName, String password) {
         User user = userRepository.findByUserName(userName);
         if (user != null && user.getUserPassword().equals(password)) {
-            System.out.println(user.getUserName() + user.getUserPassword());
             return generateJwtToken(user); // Gera e retorna o token JWT
         } else {
             throw new RuntimeException("Credenciais inválidas.");
         }
     }
 
+    private JwtUtil jwtUtil = new JwtUtil();
+
     public String generateJwtToken(User user) {
-        long nowMillis = System.currentTimeMillis();
-        Date now = new Date(nowMillis);
-        long expMillis = nowMillis + 3600000; // Token válido por 1 hora
-        Date exp = new Date(expMillis);
-
-        // Geração da chave secreta (substitua "JVS29032004" pela sua chave secreta)
-        Key key = Keys.hmacShaKeyFor("JVS29032004".getBytes(StandardCharsets.UTF_8));
-
-        return Jwts.builder()
-            .setSubject(user.getUserName())
-            .setIssuedAt(now)
-            .setExpiration(exp)
-            .signWith(key, SignatureAlgorithm.HS512) // Use a chave Key aqui
-            .compact();
+        // Utiliza o método generateToken da classe JwtUtil para gerar o token
+        String token = jwtUtil.generateToken(user.getUserName(), user.getSequence());
+        
+        return token;
     }
+    
 
     public Long getUserSequence(String userName) {
         User user = userRepository.findByUserName(userName);

@@ -26,7 +26,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/auth/**", "/user/login", "/serviceOrder").permitAll()
                 .anyRequest().authenticated()
-            )        
+            )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
