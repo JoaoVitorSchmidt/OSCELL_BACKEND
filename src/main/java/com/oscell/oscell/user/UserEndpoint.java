@@ -121,12 +121,11 @@ public class UserEndpoint {
         
         return token;
     }
-    
 
     public Long getUserSequence(String userName) {
         User user = userRepository.findByUserName(userName);
         if (user != null) {
-            return user.getSequence(); // Supondo que 'getSequence' seja o método para obter o número de sequência do usuário
+            return user.getSequence();
         } else {
             throw new UsernameNotFoundException("Usuário não encontrado com o nome: " + userName);
         }

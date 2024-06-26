@@ -13,6 +13,7 @@ import com.oscell.oscell.serviceorders.domain.ServiceOrder;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderCreation;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderUpdate;
 import com.oscell.oscell.user.UserRepository;
+import com.oscell.oscell.user.domain.User;
 
 @Service
 public class ServiceOrderEndpoint {
@@ -44,8 +45,19 @@ public class ServiceOrderEndpoint {
     public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation, String token) {
         Long userSequence = null;
         String username = jwtUtil.validateToken(token);
+        
         if (username != null) {
-            userSequence = userRepository.findByUserName(username).getSequence();
+            System.out.println("Username from token: " + username);
+            User user = userRepository.findByUserName(username);
+            
+            if (user != null) {
+                userSequence = user.getSequence();
+                System.out.println("User sequence: " + userSequence);
+            } else {
+                System.out.println("User not found in repository.");
+            }
+        } else {
+            System.out.println("Invalid token.");
         }
         
         if (userSequence != null) {
@@ -60,7 +72,7 @@ public class ServiceOrderEndpoint {
         } else {
             return ServiceOrderResponse.error("Token inválido ou usuário não encontrado.");
         }
-    }
+    }    
 
     public ServiceOrderResponse<ServiceOrder> updateServiceOrder(Long sequence, ServiceOrderUpdate serviceOrderUpdate) {
         try {  

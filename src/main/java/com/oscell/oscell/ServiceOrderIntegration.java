@@ -55,7 +55,6 @@ public class ServiceOrderIntegration {
         return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
     }
 
-
     @PutMapping("/{sequence}")
     public ResponseEntity<ServiceOrderResponse<ServiceOrder>> updateServiceOrder(@PathVariable Long sequence, @RequestBody ServiceOrderUpdate serviceOrderUpdate) {
         ServiceOrderResponse<ServiceOrder> response = endpoint.updateServiceOrder(sequence, serviceOrderUpdate);

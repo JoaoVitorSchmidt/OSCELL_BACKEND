@@ -19,7 +19,7 @@ function LoginForm() {
   
         if (response.ok) {
             const { token } = await response.json(); // Supondo que o servidor retorne um objeto com uma propriedade 'token'
-            localStorage.setItem('token', token); // Armazena o token no armazenamento local
+            localStorage.setItem('token', token);// Armazena o token no armazenamento local
             window.location.href = '/os';
         } else {
             setError('Credenciais inválidas.');

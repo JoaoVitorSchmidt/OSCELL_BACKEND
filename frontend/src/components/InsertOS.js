@@ -34,7 +34,6 @@ function InsertOS({ onClose }) {
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));    
   };
-  
 
   return (
     <div className="insert-os-overlay">

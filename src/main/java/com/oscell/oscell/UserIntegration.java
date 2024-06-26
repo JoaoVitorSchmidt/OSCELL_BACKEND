@@ -55,7 +55,7 @@ public class UserIntegration {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ServiceOrderResponse.error("Credenciais inválidas."));
         }
-    }      
+    }
 
     @PostMapping
     public ResponseEntity<ServiceOrderResponse<User>> createUser(@RequestBody UserCreation userCreation) {
