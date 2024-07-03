@@ -2,7 +2,7 @@ package com.oscell.oscell.config.authentication;
 
 import com.oscell.oscell.config.security.DataTokenJWT;
 import com.oscell.oscell.config.security.TokenService;
-import com.oscell.oscell.model.User;
+import com.oscell.oscell.domain.User;
 import com.oscell.oscell.config.UserCredentials;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

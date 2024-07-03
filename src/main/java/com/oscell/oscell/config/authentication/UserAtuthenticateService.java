@@ -1,6 +1,6 @@
 package com.oscell.oscell.config.authentication;
 
-import com.oscell.oscell.model.repository.UserRepository;
+import com.oscell.oscell.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
