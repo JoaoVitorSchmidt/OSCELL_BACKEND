@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-			<version>3.18.2</version>
+			<version>4.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -125,8 +125,7 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-</dependencies>
-
+	</dependencies>
 	<repositories>
 		<repository>
 			<id>com.springsource.repository.bundles.release</id>

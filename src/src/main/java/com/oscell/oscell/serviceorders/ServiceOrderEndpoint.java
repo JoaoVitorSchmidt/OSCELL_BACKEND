@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.oscell.oscell.commons.response.ServiceOrderResponse;
-import com.oscell.oscell.security.JwtUtil;
 import com.oscell.oscell.serviceorders.domain.ServiceOrder;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderCreation;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderUpdate;

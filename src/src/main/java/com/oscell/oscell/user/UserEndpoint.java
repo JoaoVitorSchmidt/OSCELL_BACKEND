@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.oscell.oscell.commons.response.ServiceOrderResponse;
-import com.oscell.oscell.security.JwtUtil;
 import com.oscell.oscell.user.domain.User;
 import com.oscell.oscell.user.domain.UserCreation;
 import com.oscell.oscell.user.domain.UserUpdate;

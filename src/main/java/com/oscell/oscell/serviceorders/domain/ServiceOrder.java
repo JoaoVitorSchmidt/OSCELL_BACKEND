@@ -53,7 +53,7 @@ public class ServiceOrder {
     private String clientEmail;
 
     @Column(name = "USUARIO_SIS")
-    private Long userSys;
+    private String userSys;
 
     public Long getSequence() {
         return sequence;
@@ -159,11 +159,11 @@ public class ServiceOrder {
         this.situation = situation;
     }
 
-    public Long getUserSys() {
+    public String getUserSys() {
         return userSys;
     }
 
-    public void setUserSys(Long userSys) {
+    public void setUserSys(String userSys) {
         this.userSys = userSys;
     }
 }

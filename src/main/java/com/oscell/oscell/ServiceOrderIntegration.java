@@ -51,7 +51,7 @@ public class ServiceOrderIntegration {
             @RequestBody ServiceOrderCreation serviceOrderCreation,
             @RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.substring("Bearer ".length());
-        ServiceOrderResponse<ServiceOrder> response = endpoint.createServiceOrder(serviceOrderCreation, token);
+        ServiceOrderResponse<ServiceOrder> response = endpoint.createServiceOrder(serviceOrderCreation);
         return ResponseEntity.status(response.isError() ? 400 : 200).body(response);
     }
 

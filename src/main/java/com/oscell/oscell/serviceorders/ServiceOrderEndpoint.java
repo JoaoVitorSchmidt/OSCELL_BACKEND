@@ -1,19 +1,19 @@
 package com.oscell.oscell.serviceorders;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.oscell.oscell.commons.response.ServiceOrderResponse;
-import com.oscell.oscell.security.JwtUtil;
 import com.oscell.oscell.serviceorders.domain.ServiceOrder;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderCreation;
 import com.oscell.oscell.serviceorders.domain.ServiceOrderUpdate;
 import com.oscell.oscell.user.UserRepository;
-import com.oscell.oscell.user.domain.User;
 
 @Service
 public class ServiceOrderEndpoint {
@@ -23,9 +23,6 @@ public class ServiceOrderEndpoint {
 
     @Autowired
     ServiceOrderMapper mapper;
-
-    @Autowired
-    JwtUtil jwtUtil;
 
     @Autowired
     UserRepository userRepository;
@@ -42,37 +39,29 @@ public class ServiceOrderEndpoint {
         }
     }
 
-    public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation, String token) {
-        Long userSequence = null;
-        String username = jwtUtil.validateToken(token);
-        
-        if (username != null) {
-            System.out.println("Username from token: " + username);
-            User user = userRepository.findByUserName(username);
-            
-            if (user != null) {
-                userSequence = user.getSequence();
-                System.out.println("User sequence: " + userSequence);
-            } else {
-                System.out.println("User not found in repository.");
-            }
-        } else {
-            System.out.println("Invalid token.");
+    public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation) {
+        try {
+            ServiceOrder serviceOrder = new ServiceOrder();
+            serviceOrder.setBrand(serviceOrderCreation.getBrand());
+            serviceOrder.setModel(serviceOrderCreation.getModel());
+            serviceOrder.setCreationDate(Instant.now());
+            serviceOrder.setDescription(serviceOrderCreation.getDescription());
+            serviceOrder.setClientSequence(serviceOrderCreation.getClientSequence());
+            serviceOrder.setClientName(serviceOrderCreation.getClientName());
+            serviceOrder.setClientCell(serviceOrderCreation.getClientCell());
+            serviceOrder.setClientFixo(serviceOrderCreation.getClientFixo());
+            serviceOrder.setClientCPF(serviceOrderCreation.getClientCPF());
+            serviceOrder.setClientEmail(serviceOrderCreation.getClientEmail());
+            serviceOrder.setSituation(serviceOrderCreation.getSituation());
+            serviceOrder.setUserSys(serviceOrderCreation.getUserSys());
+
+            ServiceOrder savedServiceOrder = repository.save(serviceOrder);
+
+            return ServiceOrderResponse.ok(savedServiceOrder);
+        } catch (Exception e) {
+            return ServiceOrderResponse.errorWithContent(mapper.map(serviceOrderCreation), e.getMessage());
         }
-        
-        if (userSequence != null) {
-            ServiceOrder entity = mapper.map(serviceOrderCreation);
-            entity.setUserSys(userSequence); // Adiciona o número de sequência do usuário no campo Usuario_SIS
-            try {
-                repository.save(entity);
-                return ServiceOrderResponse.ok(entity);
-            } catch (Exception e) {
-                return ServiceOrderResponse.errorWithContent(entity, e.getMessage());
-            }
-        } else {
-            return ServiceOrderResponse.error("Token inválido ou usuário não encontrado.");
-        }
-    }    
+    }
 
     public ServiceOrderResponse<ServiceOrder> updateServiceOrder(Long sequence, ServiceOrderUpdate serviceOrderUpdate) {
         try {  

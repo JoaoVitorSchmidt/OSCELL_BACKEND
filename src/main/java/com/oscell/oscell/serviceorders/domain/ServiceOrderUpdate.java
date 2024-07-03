@@ -10,7 +10,7 @@ public class ServiceOrderUpdate {
     private String clientFixo;
     private String clientCPF;
     private String clientEmail;
-    private Long userSys;
+    private String userSys;
     
     public String getBrand() {
         return brand;
@@ -66,10 +66,10 @@ public class ServiceOrderUpdate {
     public void setSituation(String situation) {
         this.situation = situation;
     }
-    public Long getUserSys() {
+    public String getUserSys() {
         return userSys;
     }
-    public void setUserSys(Long userSys) {
+    public void setUserSys(String userSys) {
         this.userSys = userSys;
     }
 }
