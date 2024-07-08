@@ -18,16 +18,18 @@ public class TokenService {
     @Value("${api.securit.token.secret}")
     private String secret;
 
-    public String geenerateToken(User user){
+    public String generateToken(User user){
         try {
             var algorithm = Algorithm.HMAC256(secret);
+            String username = user.getUsername();
             return JWT.create()
                     .withIssuer("OSCELL")
-                    .withSubject(user.getUsername())
+                    .withSubject(username)
                     .withExpiresAt(expiredDate())
+                    .withClaim("username", username)
                     .sign(algorithm);
         } catch (JWTCreationException exception){
-            throw new RuntimeException("erro ao gerar token jwt", exception);
+            throw new RuntimeException("Erro ao gerar token JWT", exception);
         }
     }
 
@@ -46,7 +48,7 @@ public class TokenService {
     }
 
     private Instant expiredDate() {
-        return LocalDateTime.now().plusHours(8).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(10).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }

@@ -25,12 +25,15 @@ public class AuthenticateController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid UserCredentials credentials) {
+    public ResponseEntity<DataTokenJWT> efetuarLogin(@RequestBody @Valid UserCredentials credentials) {
         var AuthenticationToken = new UsernamePasswordAuthenticationToken(credentials.username(), credentials.password());
         var authentication = manager.authenticate(AuthenticationToken);
 
-        var tokenJWT = tokenService.geenerateToken((User) authentication.getPrincipal());
+        var user = (User) authentication.getPrincipal();
+        String username = user.getUsername();
 
-        return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
+        var tokenJWT = tokenService.generateToken(user);
+
+        return ResponseEntity.ok(new DataTokenJWT(tokenJWT, username));
     }
 }

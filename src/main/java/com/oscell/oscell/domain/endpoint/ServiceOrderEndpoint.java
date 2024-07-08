@@ -3,6 +3,7 @@ package com.oscell.oscell.domain.endpoint;
 import java.time.Instant;
 import java.util.List;
 
+import com.oscell.oscell.domain.repository.ClientRepository;
 import com.oscell.oscell.domain.repository.ServiceOrderRepository;
 import com.oscell.oscell.domain.mapper.ServiceOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import com.oscell.oscell.domain.repository.UserRepository;
 
 @Service
 public class ServiceOrderEndpoint {
-    
+
     @Autowired
     ServiceOrderRepository repository;
 
@@ -27,7 +28,10 @@ public class ServiceOrderEndpoint {
 
     @Autowired
     UserRepository userRepository;
-    
+
+    @Autowired
+    ClientRepository clientRepository;
+
     public List<ServiceOrder> getServiceOrder() {
         return repository.findAll();
     }
@@ -42,6 +46,10 @@ public class ServiceOrderEndpoint {
 
     public ServiceOrderResponse<ServiceOrder> createServiceOrder(ServiceOrderCreation serviceOrderCreation) {
         try {
+            if (!clientRepository.existsByClientName(serviceOrderCreation.getClientName())) {
+                return ServiceOrderResponse.error("Cliente não encontrado: " + serviceOrderCreation.getClientName());
+            }
+
             ServiceOrder serviceOrder = new ServiceOrder();
             serviceOrder.setBrand(serviceOrderCreation.getBrand());
             serviceOrder.setModel(serviceOrderCreation.getModel());
@@ -65,7 +73,7 @@ public class ServiceOrderEndpoint {
     }
 
     public ServiceOrderResponse<ServiceOrder> updateServiceOrder(Long sequence, ServiceOrderUpdate serviceOrderUpdate) {
-        try {  
+        try {
             ServiceOrder entity = getServiceOrder(sequence);
             if (serviceOrderUpdate.getBrand() != null) {
                 entity.setBrand(serviceOrderUpdate.getBrand());
@@ -107,10 +115,5 @@ public class ServiceOrderEndpoint {
             return ServiceOrderResponse.error(e.getMessage());
         }
     }
-
-    @GetMapping
-    public ResponseEntity<List<ServiceOrder>> getServiceOrders() {
-        List<ServiceOrder> serviceOrders = repository.findAll();
-        return ResponseEntity.ok(serviceOrders);
-    }
 }
+
