@@ -16,6 +16,8 @@ import com.oscell.oscell.domain.ServiceOrder;
 import com.oscell.oscell.domain.creation.ServiceOrderCreation;
 import com.oscell.oscell.domain.update.ServiceOrderUpdate;
 import com.oscell.oscell.domain.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ServiceOrderEndpoint {
@@ -32,15 +34,18 @@ public class ServiceOrderEndpoint {
     @Autowired
     ClientRepository clientRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(ServiceOrderEndpoint.class);
+
     public List<ServiceOrder> getServiceOrder() {
         return repository.findAll();
     }
 
-    public ServiceOrder getServiceOrder(Long sequence) throws Exception{
-        try{
-            return repository.findById(sequence).get();
-        }catch(Exception e){
-            throw new Exception("No service order found with the sequence: " + sequence);
+    public ServiceOrder getServiceOrder(Long sequence) throws Exception {
+        try {
+            return repository.findById(sequence).orElseThrow(() -> new Exception("No service order found with the sequence: " + sequence));
+        } catch (Exception e) {
+            logger.error("Error fetching service order with sequence {}: {}", sequence, e.getMessage());
+            throw e;
         }
     }
 
@@ -99,8 +104,11 @@ public class ServiceOrderEndpoint {
             if (serviceOrderUpdate.getClientEmail() != null) {
                 entity.setClientEmail(serviceOrderUpdate.getClientEmail());
             }
-            repository.save(entity);
-            return ServiceOrderResponse.ok(entity);
+            if (serviceOrderUpdate.getSituation() != null) {
+                entity.setSituation(serviceOrderUpdate.getSituation());
+            }
+            ServiceOrder updatedServiceOrder = repository.save(entity);
+            return ServiceOrderResponse.ok(updatedServiceOrder);
         } catch (Exception e) {
             return ServiceOrderResponse.errorWithContent(mapper.map(serviceOrderUpdate), e.getMessage());
         }
@@ -116,4 +124,3 @@ public class ServiceOrderEndpoint {
         }
     }
 }
-
